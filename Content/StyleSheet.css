@@ -1,0 +1,334 @@
+﻿/* ============================================================
+   StudyBuddy — base tokens + shared components
+   Linked on every page BEFORE layout.css and the page sheet.
+   ============================================================ */
+
+:root {
+    /* Surfaces */
+    --ink: #15161D; /* nav / dark shell            */
+    --ink-2: #20222D; /* raised dark panels          */
+    --ink-line: #2C2F3C; /* dividers on dark            */
+    --surface: #FBFAF6; /* app background (warm paper)  */
+    --surface-2: #F2EFE7; /* sunk panels                  */
+    --card: #FFFFFF; /* content cards                */
+    /* Text */
+    --text: #1B1D24;
+    --muted: #6B6F7B;
+    --on-dark: #ECEAF3;
+    --on-dark-mut: #9CA0AE;
+    /* Accents (each has a job — not decoration) */
+    --accent: #4F46E5; /* primary actions / links      */
+    --accent-600: #4338CA;
+    --accent-50: #EEEDFC;
+    --flame: #F59E0B; /* streak + study phase         */
+    --flame-50: #FEF3DD;
+    --go: #10B981; /* complete + break phase       */
+    --go-50: #E4F7F0;
+    --danger: #E5484D;
+    --danger-50: #FBECEC;
+    /* Form */
+    --line: #E6E2D9;
+    --line-2: #D9D4C8;
+    /* Geometry */
+    --r-sm: 9px;
+    --r: 14px;
+    --r-lg: 20px;
+    --shadow-sm: 0 1px 2px rgba(20,22,30,.05);
+    --shadow: 0 1px 2px rgba(20,22,30,.04), 0 10px 30px rgba(20,22,30,.07);
+    --shadow-lg: 0 24px 60px rgba(20,22,30,.16);
+    /* Type */
+    --display: "Space Grotesk", system-ui, sans-serif;
+    --body: "Inter", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: var(--body);
+    background: var(--surface);
+    color: var(--text);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--display);
+    font-weight: 600;
+    line-height: 1.15;
+    margin: 0;
+    letter-spacing: -.01em;
+}
+
+p {
+    margin: 0 0 1rem;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+/* eyebrow label */
+.eyebrow {
+    font-family: var(--mono);
+    font-size: .72rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 .5rem;
+}
+
+/* ---------- buttons ---------- */
+.btn {
+    --bg: var(--card);
+    --fg: var(--text);
+    --bd: var(--line-2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    font-family: var(--body);
+    font-size: .92rem;
+    font-weight: 600;
+    padding: .62rem 1.05rem;
+    border: 1px solid var(--bd);
+    border-radius: var(--r-sm);
+    background: var(--bg);
+    color: var(--fg);
+    cursor: pointer;
+    transition: transform .08s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
+    white-space: nowrap;
+}
+
+    .btn:hover {
+        box-shadow: var(--shadow-sm);
+    }
+
+    .btn:active {
+        transform: translateY(1px);
+    }
+
+    .btn:focus-visible {
+        outline: 3px solid var(--accent-50);
+        outline-offset: 1px;
+    }
+
+    .btn[disabled] {
+        opacity: .5;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+.btn-primary {
+    --bg: var(--accent);
+    --fg: #fff;
+    --bd: var(--accent);
+}
+
+    .btn-primary:hover {
+        --bg: var(--accent-600);
+        --bd: var(--accent-600);
+    }
+
+.btn-go {
+    --bg: var(--go);
+    --fg: #fff;
+    --bd: var(--go);
+}
+
+.btn-ghost {
+    --bg: transparent;
+    --bd: transparent;
+}
+
+    .btn-ghost:hover {
+        --bg: var(--surface-2);
+    }
+
+.btn-danger {
+    --fg: var(--danger);
+    --bd: var(--line-2);
+}
+
+    .btn-danger:hover {
+        --bg: var(--danger-50);
+        --bd: var(--danger);
+    }
+
+.btn-sm {
+    padding: .4rem .7rem;
+    font-size: .82rem;
+}
+
+.btn-lg {
+    padding: .8rem 1.4rem;
+    font-size: 1rem;
+}
+
+/* ---------- cards ---------- */
+.card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    box-shadow: var(--shadow-sm);
+}
+
+.card-pad {
+    padding: 1.4rem;
+}
+
+/* ---------- form controls ---------- */
+.input, .textarea, select {
+    width: 100%;
+    font-family: var(--body);
+    font-size: .95rem;
+    color: var(--text);
+    background: var(--card);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-sm);
+    padding: .7rem .85rem;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+    .input:focus, .textarea:focus, select:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 4px var(--accent-50);
+    }
+
+.textarea {
+    resize: vertical;
+    min-height: 90px;
+    line-height: 1.5;
+}
+
+label.field {
+    display: block;
+}
+
+    label.field > span {
+        display: block;
+        font-size: .8rem;
+        font-weight: 600;
+        color: var(--muted);
+        margin-bottom: .35rem;
+    }
+
+/* ---------- chips / pills ---------- */
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    font-size: .78rem;
+    font-weight: 600;
+    padding: .28rem .6rem;
+    border-radius: 999px;
+    background: var(--surface-2);
+    color: var(--muted);
+    border: 1px solid var(--line);
+}
+
+    .chip.is-flame {
+        background: var(--flame-50);
+        color: #B26A00;
+        border-color: #F6DDA6;
+    }
+
+    .chip.is-go {
+        background: var(--go-50);
+        color: #0A7D5A;
+        border-color: #B6E7D6;
+    }
+
+/* ---------- utility ---------- */
+.muted {
+    color: var(--muted);
+}
+
+.center {
+    text-align: center;
+}
+
+.stack > * + * {
+    margin-top: 1rem;
+}
+
+.row {
+    display: flex;
+    gap: .6rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.spread {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.spinner {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    animation: spin .7s linear infinite;
+    display: inline-block;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ---------- toast ---------- */
+#toast {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    transform: translate(-50%, 20px);
+    background: var(--ink);
+    color: var(--on-dark);
+    padding: .7rem 1.1rem;
+    border-radius: var(--r-sm);
+    font-size: .9rem;
+    font-weight: 500;
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease, transform .2s ease;
+    z-index: 90;
+    max-width: 90vw;
+}
+
+    #toast.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+    }
+}

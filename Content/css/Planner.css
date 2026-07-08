@@ -1,0 +1,509 @@
+﻿/* ============================================================
+   Planner.css — StudyBuddy Weekly Planner (Teal Theme)
+   Assumes navbar is handled by layout.css / layout.js
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ── Tokens ─────────────────────────────────────────────── */
+:root {
+    --pl-bg: #f6fbfb;
+    --pl-surface: #ffffff;
+    --pl-card: #ffffff;
+    --pl-border: #d7eeee;
+    --pl-accent: #2ec4b6;
+    --pl-accent-soft: rgba(46,196,182,0.12);
+    --pl-text: #0f2e2c;
+    --pl-muted: #6b8f8c;
+    --pl-done: #20c997;
+}
+
+/* ── Page background (below navbar) ─────────────────────── */
+body {
+    background: var(--pl-bg);
+    color: var(--pl-text);
+    font-family: 'Inter', sans-serif;
+}
+
+/* ── Hero banner ─────────────────────────────────────────── */
+.planner-hero {
+    background: var(--pl-surface);
+    text-align: center;
+    padding: 44px 24px 32px;
+    border-bottom: 1px solid var(--pl-border);
+    position: relative;
+    overflow: hidden;
+}
+
+    .planner-hero::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 500px;
+        height: 220px;
+        background: radial-gradient(ellipse, rgba(46,196,182,0.10) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+.hero-eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--pl-accent);
+    margin-bottom: 12px;
+}
+
+.hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 9vw, 88px);
+    font-weight: 900;
+    font-style: italic;
+    line-height: 0.88;
+    color: var(--pl-text);
+    letter-spacing: -0.02em;
+}
+
+    .hero-title span {
+        display: block;
+        font-style: normal;
+        font-weight: 700;
+        font-size: clamp(32px, 5.5vw, 58px);
+        letter-spacing: 0.14em;
+        color: var(--pl-accent);
+        margin-top: 4px;
+    }
+
+.hero-sub {
+    margin-top: 18px;
+    font-size: 11px;
+    color: var(--pl-muted);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+}
+
+/* ── Main layout grid ────────────────────────────────────── */
+.main {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+    display: grid;
+    grid-template-columns: 272px 1fr;
+    gap: 28px;
+    align-items: start;
+}
+
+/* ── Sidebar ─────────────────────────────────────────────── */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ── Calendar ────────────────────────────────────────────── */
+.calendar {
+    background: var(--pl-card);
+    border: 1px solid var(--pl-border);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.cal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--pl-surface);
+    border-bottom: 1px solid var(--pl-border);
+}
+
+    .cal-header h3 {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--pl-accent);
+    }
+
+.cal-nav {
+    background: none;
+    border: none;
+    color: var(--pl-muted);
+    cursor: pointer;
+    font-size: 18px;
+    padding: 2px 6px;
+    line-height: 1;
+    transition: color 0.18s;
+}
+
+    .cal-nav:hover {
+        color: var(--pl-accent);
+    }
+
+.cal-grid {
+    padding: 12px 10px;
+}
+
+.cal-dow {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 4px;
+}
+
+    .cal-dow span {
+        text-align: center;
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--pl-muted);
+        padding: 4px 0;
+    }
+
+.cal-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.cal-day {
+    text-align: center;
+    font-size: 11px;
+    padding: 5px 2px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--pl-text);
+    transition: background 0.15s, color 0.15s;
+}
+
+    .cal-day:hover {
+        background: var(--pl-accent-soft);
+    }
+
+    .cal-day.other-month {
+        color: var(--pl-muted);
+    }
+
+    .cal-day.today {
+        background: var(--pl-accent);
+        color: var(--pl-black);
+        font-weight: 700;
+    }
+
+    .cal-day.selected {
+        outline: 1.5px solid var(--pl-accent);
+    }
+
+/* ── Pie / Progress card ─────────────────────────────────── */
+.chart-card {
+    background: var(--pl-card);
+    border: 1px solid var(--pl-border);
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.chart-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--pl-accent);
+    margin-bottom: 16px;
+}
+
+.pie-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.pie-svg {
+    display: block;
+}
+
+.pie-legend {
+    display: flex;
+    gap: 20px;
+    font-size: 11px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.legend-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+    .legend-dot.done {
+        background: var(--pl-done);
+    }
+
+    .legend-dot.pending {
+        background: var(--pl-border);
+    }
+
+.legend-val {
+    font-weight: 600;
+}
+
+.pie-stats {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 2px;
+}
+
+.stat-box {
+    background: var(--pl-surface);
+    border: 1px solid var(--pl-border);
+    border-radius: 4px;
+    padding: 10px;
+    text-align: center;
+}
+
+.stat-num {
+    font-size: 22px;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+}
+
+    .stat-num.done-col {
+        color: var(--pl-done);
+    }
+
+    .stat-num.pend-col {
+        color: var(--pl-muted);
+    }
+
+.stat-lbl {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--pl-muted);
+    margin-top: 2px;
+}
+
+/* ── Task Board ──────────────────────────────────────────── */
+.board {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.board-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--pl-border);
+}
+
+.board-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--pl-text);
+}
+
+.board-week {
+    font-size: 11px;
+    color: var(--pl-muted);
+    letter-spacing: 0.1em;
+}
+
+
+
+.day-col {
+    background: var(--pl-card);
+    border: 1px solid var(--pl-border);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s;
+}
+
+    .day-col:hover {
+        border-color: var(--pl-accent2);
+    }
+
+.day-head {
+    padding: 9px 12px;
+    background: var(--pl-surface);
+    border-bottom: 1px solid var(--pl-border);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pl-accent);
+}
+
+.task-list {
+    padding: 10px 10px 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+/* Checkbox */
+.task-check {
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid var(--pl-muted);
+    border-radius: 2px;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s, background 0.2s;
+    background: transparent;
+}
+
+    .task-check.checked {
+        border-color: var(--pl-done);
+        background: var(--pl-done);
+    }
+
+        .task-check.checked::after {
+            content: '✓';
+            font-size: 9px;
+            color: var(--pl-black);
+            font-weight: 700;
+            line-height: 1;
+        }
+
+/* Task text input */
+.task-input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid transparent;
+    color: var(--pl-text);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    width: 100%;
+    padding: 1px 2px;
+    transition: border-color 0.2s;
+    outline: none;
+}
+
+    .task-input::placeholder {
+        color: var(--pl-muted);
+    }
+
+    .task-input:focus {
+        border-bottom-color: var(--pl-accent);
+    }
+
+    .task-input.done-text {
+        color: var(--pl-muted);
+        text-decoration: line-through;
+    }
+
+/* Add task button */
+.add-task-btn {
+    margin: 4px 10px 10px;
+    background: none;
+    border: 1px dashed var(--pl-border);
+    border-radius: 4px;
+    color: var(--pl-muted);
+    font-size: 11px;
+    padding: 5px;
+    cursor: pointer;
+    width: calc(100% - 20px);
+    text-align: center;
+    transition: border-color 0.2s, color 0.2s;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.06em;
+}
+
+    .add-task-btn:hover {
+        border-color: var(--pl-accent);
+        color: var(--pl-accent);
+    }
+
+
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .days-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 860px) {
+    .main {
+        grid-template-columns: 1fr;
+    }
+
+    .days-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .days-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .main {
+        padding: 20px 14px 48px;
+    }
+}
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+.nav a {
+    text-decoration: none !important;
+}
+html, body {
+    overflow-x: hidden;
+}
+.task-input {
+    min-width: 0;
+}
+.task-item {
+    min-width: 0;
+}
+.board {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* or fixed height if you use scroll */
+}
+
+.board-body {
+    padding: 12px;
+    overflow-y: auto;
+    flex: 1;
+}
+.board {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 12px; /* 🔥 THIS creates space from edges */
+}
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 260px); /* fixed card width */
+    justify-content: center; /* 🔥 THIS centers the whole grid */
+    gap: 10px;
+}

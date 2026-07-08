@@ -1,0 +1,136 @@
+﻿@model Studyhelper.Models.User
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyBuddy — Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/css/style.css" />
+    <link rel="stylesheet" href="~/Content/css/layout.css" />
+    <link rel="icon" type="image/png" href="@Url.Content("~/Content/logo2.png")">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background-image: url('@Url.Content("~/Content/img1.png")');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .profile-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 80px);
+            padding: 2rem;
+        }
+        .profile-card {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            padding: 2.5rem 3rem;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            text-align: center;
+        }
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6c63ff, #48cae4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+        .profile-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 0 0.25rem;
+            color: #1a1a2e;
+        }
+        .profile-email {
+            color: #666;
+            font-size: 0.95rem;
+            margin: 0 0 2rem;
+        }
+        .btn-logout {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 0.75rem;
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .btn-logout:hover { background: #e0354a; }
+    </style>
+</head>
+<body data-page="profile">
+    <div class="app">
+        <header class="nav">
+            <div class="nav-inner">
+                <a class="brand" href="@Url.Action("Index", "Home")" style="color:black">
+                    <span class="mark" aria-hidden="true">
+                        <img src="@Url.Content("~/Content/logo2.png")" alt="StudyBuddy Logo" />
+                    </span>
+                    StudyBuddy
+                </a>
+                <button class="hamburger" type="button" aria-label="Toggle navigation">
+                    ☰
+                </button>
+                <nav class="nav-links" aria-label="Primary">
+                    <a class="nav-link" data-page="study" href="@Url.Action("Index", "Home")">
+                        <span class="ic"><i class="fa-solid fa-book"></i></span>Study Hub
+                    </a>
+                    <a class="nav-link" data-page="timer" href="@Url.Action("Timer", "Home")">
+                        <span class="ic"><i class="fa-solid fa-clock"></i></span>Focus Timer
+                    </a>
+                    <a class="nav-link" data-page="planner" href="@Url.Action("Planner", "Home")">
+                        <span class="ic"><i class="fa-solid fa-calendar-days"></i></span>Planner
+                    </a>
+                    <a class="nav-link search" data-page="profile" href="@Url.Action("Profile", "Home")">
+                        <span class="ic"><i class="fa-solid fa-user"></i></span>Profile
+                    </a>
+                </nav>
+                <div class="streak" id="streak" aria-label="Daily study streak"></div>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="profile-wrap">
+                <div class="profile-card">
+                    <div class="profile-avatar">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <h1 class="profile-name">@Model.Username</h1>
+                    <p class="profile-email">@Model.User_email</p>
+                    <a class="btn-logout" href="@Url.Action("Logout", "Home")">
+                        <i class="fa fa-sign-out-alt"></i> Log out
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <footer class="foot">
+            <div class="foot-inner">
+                <span>StudyBuddy — saved locally on this device.</span>
+            </div>
+        </footer>
+    </div>
+    <script src="~/Content/js/layout.js"></script>
+</body>
+</html>

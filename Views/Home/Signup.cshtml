@@ -1,0 +1,86 @@
+﻿@model Studyhelper.Models.User
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - TheWayShop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="~/Content/css/signup.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="@Url.Content("~/Content/logo2.png")">
+    <style>
+    body {
+        min-height: 100vh;
+        background: url('@Url.Content("~/Content/image.jpg")') no-repeat center center;
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Nunito', sans-serif;
+        padding: 2rem;
+    }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="card-top">
+            <div class="logo-wrap">
+                <img src="@Url.Content("~/Content/logo.png")" alt="StudyBuddy Logo" />
+            </div>
+            <h1>Create an Account</h1>
+            <p>Join StudyBuddy today</p>
+        </div>
+
+        <div class="card-body">
+            @using (Html.BeginForm("SignUp", "Home", FormMethod.Post))
+            {
+                <div class="field">
+                    <label>Full Name</label>
+                    <div class="inp-wrap">
+                        <input type="text" name="User_name" placeholder="John Doe" required />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Email</label>
+                    <div class="inp-wrap">
+                        <input type="email" name="User_email" placeholder="you@example.com" required />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Password</label>
+                    <div class="inp-wrap">
+                        <input type="password" name="User_password" id="p1" placeholder="••••••••" required />
+                        <button class="eye" type="button" onclick="tog('p1')">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Confirm Password</label>
+                    <div class="inp-wrap">
+                        <input type="password" name="User_ConfirmPassword" id="p2" placeholder="••••••••" required />
+                        <button class="eye" type="button" onclick="tog('p2')">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="msg @(ViewBag.Success == true ? "ok" : "")">@ViewBag.Message</div>
+
+                <button class="btn" type="submit">Create Account</button>
+            }
+            <p class="login-link">Already have an account? <a href="@Url.Action("Login","Home")">Login in</a></p>
+        </div>
+    </div>
+
+    <script>
+        function tog(id) {
+            var el = document.getElementById(id);
+            el.type = el.type === 'password' ? 'text' : 'password';
+        }
+    </script>
+</body>
+</html>

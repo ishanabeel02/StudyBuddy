@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyBuddy — Study Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/css/style.css" />
+    <link rel="stylesheet" href="~/Content/css/layout.css" />
+    <link rel="stylesheet" href="~/Content/css/study.css" />
+    <link rel="icon" type="image/png" href="@Url.Content("~/Content/logo2.png")">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background-image: url('@Url.Content("~/Content/img1.png")');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body data-page="study">
+    <div class="app">
+
+        <header class="nav">
+            <div class="nav-inner">
+                <a class="brand" href="@Url.Action("Index", "Home")" style=" color:black">
+                    <span class="mark" aria-hidden="true">
+                        <img src="@Url.Content("~/Content/logo2.png")" alt="StudyBuddy Logo" />
+                    </span>
+                    StudyBuddy
+                </a>
+                <button class="hamburger" type="button" aria-label="Toggle navigation">
+                    ☰
+                </button>
+                <nav class="nav-links" aria-label="Primary">
+                    <a class="nav-link" data-page="study" href="@Url.Action("Index", "Home")">
+                        <span class="ic"><i class="fa-solid fa-book"></i></span>Study Hub
+                    </a>
+                    <a class="nav-link" data-page="timer" href="@Url.Action("Timer", "Home")">
+                        <span class="ic"><i class="fa-solid fa-clock"></i></span>Focus Timer
+                    </a>
+                    <a class="nav-link" data-page="planner" href="@Url.Action("Planner", "Home")">
+                        <span class="ic"><i class="fa-solid fa-calendar-days"></i></span>Planner
+                    </a>
+                    <a class="nav-link search" data-page="profile" href="@Url.Action("Profile", "Home")">
+                        <span class="ic"><i class="fa-solid fa-user"></i></span>Profile
+                    </a>
+                </nav>
+                <div class="streak" id="streak" aria-label="Daily study streak"></div>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="wrap">
+
+                <section class="page-head">
+                    <p class="eyebrow">Study hub</p>
+                    <h1>What are we studying today?</h1>
+                    <p>Add a topic or a file, then pick what to build. Your content appears below.</p>
+                </section>
+
+                <section class="card card-pad intake" aria-label="Choose a source">
+                    <div class="intake-grid">
+                        <label class="field">
+                            <span>Topic</span>
+                            <input class="input" id="topicInput" type="text" placeholder="e.g. World War 2" />
+                        </label>
+                        <div class="intake-or"><span>or</span></div>
+                        <label class="field file-field" id="dropZone">
+                            <span>Upload a file</span>
+                            <input id="fileInput" type="file" accept=".txt,.md,.pdf,.docx,.csv" hidden />
+                            <div class="file-drop" id="fileDrop">
+                                <span class="fd-ic">📎</span>
+                                <span class="fd-text">Choose a file or drag it here</span>
+                                <span class="fd-hint muted">.txt · .md · .pdf · .docx</span>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="intake-actions">
+                        <span class="chip" id="sourceChip">No source yet</span>
+                    </div>
+                </section>
+
+                <div class="tools hidden" id="tools" role="tablist" aria-label="Study tools">
+                    <button class="tool" role="tab" data-tab="notes"> Lectures</button>
+                    <button class="tool" role="tab" data-tab="cards"> Flashcards</button>
+                    <button class="tool" role="tab" data-tab="quiz"> Quiz</button>
+                    <button class="tool" role="tab" data-tab="chat"> Discuss with AI</button>
+                </div>
+
+                <section id="workspace" class="workspace hidden" aria-label="Study content">
+
+                    <div class="panel is-active" data-panel="notes">
+                        <div class="panel-head">
+                            <div>
+                                <h2>Lecture notes</h2>
+                                <p class="muted" id="notesTopic">—</p>
+                            </div>
+                            <div class="row">
+                                <button class="btn btn-sm" id="notesRegen">↻ Regenerate</button>
+                                <div class="menu">
+                                    <button class="btn btn-sm btn-primary" id="downloadBtn" disabled>⬇ Download</button>
+                                    <div class="menu-pop" id="downloadMenu" hidden>
+                                        <button data-fmt="md">Markdown (.md)</button>
+                                        <button data-fmt="txt">Plain text (.txt)</button>
+                                        <button data-fmt="html">Web page (.html)</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <article class="notes-body" id="notesBody">
+                            <div class="empty">Click <b>Lectures</b> to generate notes.</div>
+                        </article>
+                    </div>
+
+                    <div class="panel" data-panel="cards">
+                        <div class="panel-head">
+                            <div>
+                                <h2>Flashcards</h2>
+                                <p class="muted">Tap a card to flip. Use the arrow keys to move through the deck.</p>
+                            </div>
+                            <button class="btn btn-sm" id="cardsNew">↻ Rebuild deck</button>
+                        </div>
+                        <div id="cardsArea"><div class="empty">Click <b>Flashcards</b> to build a deck.</div></div>
+                    </div>
+
+                    <div class="panel" data-panel="quiz">
+                        <div class="panel-head">
+                            <div>
+                                <h2>Quiz</h2>
+                                <p class="muted">A fresh quiz each time. Submit, review your answers, and watch your trend.</p>
+                            </div>
+                            <div class="row">
+                                <button class="btn btn-sm btn-primary" id="quizNew">＋ New quiz</button>
+                                <button class="btn btn-sm btn-ghost" id="quizReviewToggle"> Past attempts</button>
+                            </div>
+                        </div>
+                        <div id="progressArea" class="progress-report" style="display:none"></div>
+                        <div id="quizArea"><div class="empty">Click <b>New quiz</b> to begin.</div></div>
+                        <div id="attemptsArea" class="attempts hidden"></div>
+                    </div>
+
+                    <div class="panel" data-panel="chat">
+                        <div class="panel-head">
+                            <div>
+                                <h2>Discuss with AI</h2>
+                                <p class="muted" id="chatTopic">Ask anything about your topic.</p>
+                            </div>
+                            <button class="btn btn-sm btn-ghost" id="chatClear">Clear</button>
+                        </div>
+                        <div class="chat" id="chatLog"></div>
+                        <form class="chat-input" id="chatForm">
+                            <input class="input" id="chatText" placeholder="Ask a question, or say quiz me..." autocomplete="off" />
+                            <button class="btn btn-primary" type="submit">Send</button>
+                        </form>
+                    </div>
+
+                </section>
+
+            </div>
+        </main>
+
+        <footer class="foot">
+            <div class="foot-inner">
+                <span>StudyBuddy — your focused study companion.</span>
+                <span class="mono" id="aiStatus">offline mode</span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="~/Content/js/layout.js"></script>
+    <script src="~/Content/js/ai.js"></script>
+    <script src="~/Content/js/study.js"></script>
+</body>
+</html>

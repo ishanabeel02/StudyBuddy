@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyBuddy — @ViewBag.Title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/css/style.css" />
+    <link rel="stylesheet" href="~/Content/css/layout.css" />
+    @RenderSection("head", required: false)
+</head>
+<body data-page="@(ViewBag.Page ?? "")">
+    <div class="app">
+
+        <header class="nav">
+            <div class="nav-inner">
+                <a class="brand" href="@Url.Action("Study", "Home")">
+                    <span class="mark" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5v-13ZM13 4h5.5A1.5 1.5 0 0 1 20 5.5v13a1.5 1.5 0 0 1-1.5 1.5H13V4Z" fill="currentColor" /></svg>
+                    </span>
+                    StudyBuddy
+                </a>
+                <nav class="nav-links" aria-label="Primary">
+                    <a class="nav-link" data-page="study" href="@Url.Action("Study", "Home")"><span class="ic">📚</span>Study Hub</a>
+                    <a class="nav-link" data-page="timer" href="@Url.Action("Timer", "Home")"><span class="ic">⏱️</span>Focus Timer</a>
+                    <a class="nav-link" data-page="planner" href="@Url.Action("Planner", "Home")"><span class="ic">🗂️</span>Planner</a>
+                </nav>
+                <div class="streak" id="streak" aria-label="Daily study streak"></div>
+            </div>
+        </header>
+
+        <main class="main">
+            @RenderBody()
+        </main>
+
+        <footer class="foot">
+            <div class="foot-inner">
+                <span>StudyBuddy — your focused study companion.</span>
+                @if (IsSectionDefined("footStatus"))
+                {
+                    @RenderSection("footStatus", required: false)
+                }
+                else
+                {
+                    <span class="mono">study smart</span>
+                }
+            </div>
+        </footer>
+    </div>
+
+    <script src="~/Content/js/layout.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

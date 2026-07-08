@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy — Weekly Planner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/css/layout.css" />
+    <link rel="stylesheet" href="~/Content/css/Planner.css" />
+    <link rel="icon" type="image/png" href="@Url.Content("~/Content/logo2.png")">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+    body {
+        margin: 0;
+        min-height: 100vh;
+
+        background-image: url('@Url.Content("~/Content/img1.png")');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header class="nav">
+        <div class="nav-inner">
+            <a class="brand" href="@Url.Action("Index", "Home")" style=" color:black">
+                <span class="mark" aria-hidden="true">
+                    <img src="@Url.Content("~/Content/logo2.png")" alt="StudyBuddy Logo" />
+                </span>
+                StudyBuddy
+            </a>
+            <button class="hamburger" type="button" aria-label="Toggle navigation">
+                ☰
+            </button>
+            <nav class="nav-links" aria-label="Primary">
+                <a class="nav-link" data-page="study" href="@Url.Action("Index", "Home")">
+                    <span class="ic"><i class="fa-solid fa-book"></i></span>Study Hub
+                </a>
+                <a class="nav-link" data-page="timer" href="@Url.Action("Timer", "Home")">
+                    <span class="ic"><i class="fa-solid fa-clock"></i></span>Focus Timer
+                </a>
+                <a class="nav-link" data-page="planner" href="@Url.Action("Planner", "Home")">
+                    <span class="ic"><i class="fa-solid fa-calendar-days"></i></span>Planner
+                </a>
+                <a class="nav-link search" data-page="profile" href="@Url.Action("Profile", "Home")">
+                    <span class="ic"><i class="fa-solid fa-user"></i></span>Profile
+                </a>
+            </nav>
+            <div class="streak" id="streak" aria-label="Daily study streak"></div>
+        </div>
+    </header>
+
+    <div class="main">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <!-- Calendar -->
+            <div class="calendar">
+                <div class="cal-header">
+                    <button class="cal-nav" id="prevMonth">&#8249;</button>
+                    <h3 id="calTitle"></h3>
+                    <button class="cal-nav" id="nextMonth">&#8250;</button>
+                </div>
+                <div class="cal-grid">
+                    <div class="cal-dow">
+                        <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+                    </div>
+                    <div class="cal-days" id="calDays"></div>
+                </div>
+            </div>
+
+            <!-- Pie Chart -->
+            <div class="chart-card">
+                <div class="chart-label">Task Progress</div>
+                <div class="pie-wrap">
+                    <svg class="pie-svg" id="pieSvg" width="140" height="140" viewBox="0 0 140 140"></svg>
+                    <div class="pie-legend">
+                        <div class="legend-item"><div class="legend-dot done"></div><span class="legend-val" id="doneCount">0</span>&nbsp;Done</div>
+                        <div class="legend-item"><div class="legend-dot pending"></div><span class="legend-val" id="pendCount">0</span>&nbsp;Pending</div>
+                    </div>
+                    <div class="pie-stats">
+                        <div class="stat-box">
+                            <div class="stat-num done-col" id="statDone">0</div>
+                            <div class="stat-lbl">Completed</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-num pend-col" id="statPend">0</div>
+                            <div class="stat-lbl">Remaining</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+
+        <!-- BOARD -->
+        <div class="board">
+            <div class="board-header">
+                <h2 class="board-title">Weekly Task List</h2>
+                <span class="board-week" id="weekRange"></span>
+            </div>
+            <div class="days-grid" id="daysGrid"></div>
+        </div>
+
+
+    </div>
+
+
+    <script>
+    window.SB_USER_ID = "@ViewBag.UserId";
+    </script>
+    <script src="~/Content/js/layout.js"></script>
+    <script src="~/Content/js/Planner.js"></script>
+
+</body>
+</html>
+
+

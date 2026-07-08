@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyBuddy — Focus Timer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/css/style.css" />
+    <link rel="stylesheet" href="~/Content/css/layout.css" />
+    <link rel="stylesheet" href="~/Content/css/Timer.css" />
+    <link rel="icon" type="image/png" href="@Url.Content("~/Content/logo2.png")">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+    body {
+        margin: 0;
+        min-height: 100vh;
+
+        background-image: url('@Url.Content("~/Content/img1.png")');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    </style>
+</head>
+<body data-page="timer">
+    <div class="app">
+
+        <header class="nav">
+            <div class="nav-inner">
+                <a class="brand" href="@Url.Action("Index", "Home")" style=" color:black">
+                    <span class="mark" aria-hidden="true">
+                        <img src="@Url.Content("~/Content/logo2.png")" alt="StudyBuddy Logo" />
+                    </span>
+                    StudyBuddy
+                </a>
+                <button class="hamburger" type="button" aria-label="Toggle navigation">
+                    ☰
+                </button>
+                <nav class="nav-links" aria-label="Primary">
+                    <a class="nav-link" data-page="study" href="@Url.Action("Index", "Home")">
+                        <span class="ic"><i class="fa-solid fa-book"></i></span>Study Hub
+                    </a>
+                    <a class="nav-link" data-page="timer" href="@Url.Action("Timer", "Home")">
+                        <span class="ic"><i class="fa-solid fa-clock"></i></span>Focus Timer
+                    </a>
+                    <a class="nav-link" data-page="planner" href="@Url.Action("Planner", "Home")">
+                        <span class="ic"><i class="fa-solid fa-calendar-days"></i></span>Planner
+                    </a>
+                    <a class="nav-link search" data-page="profile" href="@Url.Action("Profile", "Home")">
+                        <span class="ic"><i class="fa-solid fa-user"></i></span>Profile
+                    </a>
+                </nav>
+                <div class="streak" id="streak" aria-label="Daily study streak"></div>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="wrap narrow timer-stage" id="stage" data-mode="study">
+
+                <div class="mode-row">
+                    <button class="mode-pill is-active" id="modeStudy" data-mode="study">Study · 25</button>
+                    <button class="mode-pill" id="modeBreak" data-mode="break">Break · 5</button>
+                </div>
+
+                <!-- ===== signature: split-flap flip clock ===== -->
+                <div class="flip-clock" id="clock" aria-live="polite" aria-label="Time remaining" style="background: #ffffff">
+                    <div class="flip-group" data-unit="m1"></div>
+                    <div class="flip-group" data-unit="m2"></div>
+                    <div class="flip-colon"><span></span><span></span></div>
+                    <div class="flip-group" data-unit="s1"></div>
+                    <div class="flip-group" data-unit="s2"></div>
+                </div>
+
+                <p class="phase-label" id="phaseLabel">Focus session</p>
+
+                <div class="controls">
+                    <button class="btn btn-lg btn-primary" id="startBtn">▶ Start</button>
+                    <button class="btn btn-lg" id="resetBtn">↺ Reset</button>
+                </div>
+
+                <div class="meta-row">
+                    <div class="dots" id="dots" title="Sessions completed today" aria-label="Sessions completed today"></div>
+                    <span class="meta-sep">·</span>
+                    <span class="sessions-text"><b id="sessionCount">0</b> sessions today</span>
+                </div>
+
+                <details class="settings">
+                    <summary class="adjust-summary">ADJUST LENGTHS</summary>
+                    <div class="settings-grid">
+                        <label class="field">
+                            <span>Study minutes</span>
+                            <input class="input" id="studyMins" type="number" min="1" max="90" value="25">
+                        </label>
+                        <label class="field">
+                            <span>Break minutes</span>
+                            <input class="input" id="breakMins" type="number" min="1" max="30" value="5">
+                        </label>
+                        <label class="toggle"><input type="checkbox" id="autoNext" checked><span>Auto-start next phase</span></label>
+                        <label class="toggle"><input type="checkbox" id="soundOn" checked><span>Chime on phase change</span></label>
+                    </div>
+                </details>
+
+            </div>
+        </main>
+
+        <footer class="foot">
+            <div class="foot-inner">
+                <span>StudyBuddy — work in focused sprints.</span>
+                <span class="mono" id="cycleInfo">study → break → repeat</span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="~/Content/js/layout.js"></script>
+    <script src="~/Content/js/Timer.js"></script>
+
+</body>
+
+</html>
