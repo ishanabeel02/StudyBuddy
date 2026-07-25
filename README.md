@@ -1,8 +1,14 @@
+
+
+
 # StudyBuddy
 
 StudyBuddy is an AI-powered study companion designed to make learning more interactive and productive. Built with ASP.NET MVC and SQL Server, it combines AI-assisted learning with productivity tools, allowing students to generate study materials, chat with AI, manage study sessions, and track their learning progress—all in one platform.
 
 ### **Live Demo:** https://studybuddyy.somee.com/
+
+https://github.com/user-attachments/assets/e1e7beb8-aa97-44d9-9e40-7472e0b0bb60
+
 
 ---
 
